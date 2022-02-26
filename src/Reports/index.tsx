@@ -85,7 +85,6 @@ const Index: React.FC = () => {
   }, []);
   useEffect(() => {
     reports.length > 0 && setReports(reduceAndSort());
-    reports.length > 0 && console.log("Rep55", reduceAndSort(), { reports });
   }, [reports]);
   return (
     <div className="container ">

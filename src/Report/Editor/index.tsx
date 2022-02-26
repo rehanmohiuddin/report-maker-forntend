@@ -38,24 +38,10 @@ const TextEditor = ({ name, text, index, sendFile }: Props) => {
     const data = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
   };
 
-  // useEffect(() => {
-  //   text(
-  //     index,
-  //     name,
-  //     JSON.stringify(convertToRaw(editorState.getCurrentContent()))
-  //   );
-  //   console.log(
-  //     "editor",
-  //     JSON.stringify(convertToRaw(editorState.getCurrentContent()))
-  //   );
-  // }, [editorState]);
-
   useEffect(() => {
     image && setImages([image, ...images]);
     image && sendFile(name, image.image);
   }, [image]);
-
-  console.log("Images", images);
 
   const handleInsertImage = () => {
     const src = prompt("Please enter the URL of your picture");

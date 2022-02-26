@@ -53,7 +53,6 @@ const Index = () => {
         });
       });
       setReport(_report);
-      console.log("Report11", report);
     }
   }, [report]);
 

@@ -7,10 +7,7 @@ import AvatarDemo from "../../Assets/img_avatar.png";
 
 function Index() {
   const [showNav, setNav] = useState(false);
-  const [navRef, setNavRef] = useState<HTMLDivElement>();
-  useEffect(() => {
-    console.log("Ref", navRef);
-  }, [navRef]);
+
   return (
     <header>
       <nav className="nav-bar">

@@ -51,6 +51,7 @@ export default (state = initialState, action: ReportActions) => {
       return {
         ...state,
         pending: true,
+        reportedCreated: false,
       };
     case FETCH_REPORT_SUCCESS:
       return {
@@ -58,17 +59,20 @@ export default (state = initialState, action: ReportActions) => {
         pending: false,
         fetchedReport: action.payload.report,
         error: null,
+        reportedCreated: false,
       };
     case FETCH_REPORT_FAILURE:
       return {
         ...state,
         pending: false,
         error: action.payload.error,
+        reportedCreated: false,
       };
     case FETCH_REPORTS_REQUEST:
       return {
         ...state,
         pending: true,
+        reportedCreated: false,
       };
     case FETCH_REPORTS_SUCCESS:
       return {
@@ -76,6 +80,7 @@ export default (state = initialState, action: ReportActions) => {
         pending: false,
         reports: action.payload.reports,
         error: null,
+        created: false,
       };
     case FETCH_REPORTS_FAILURE:
       return {

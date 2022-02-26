@@ -76,7 +76,6 @@ function* fetchReportsSaga(): any {
 }
 function* createReportSaga(report: createReportSagaType): any {
   try {
-    console.log("ANy", report);
     const response = yield call(createReport, report);
     yield put(
       createReportSuccess({

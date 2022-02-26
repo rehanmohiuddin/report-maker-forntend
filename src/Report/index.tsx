@@ -9,9 +9,12 @@ import {
   getPendingSelector,
   getReportCreationSelector,
 } from "../store/report/selectors";
-import { createReportRequest } from "../store/report/actions";
+import {
+  createReportRequest,
+  fetchReportsRequest,
+} from "../store/report/actions";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Loader from "../Loader";
 
 interface dataProp {
@@ -25,6 +28,7 @@ const Index: React.FC = () => {
   const error = useSelector(getErrorSelector);
   const pending = useSelector(getPendingSelector);
   const navigation = useNavigate();
+  const [reportCreated, setCreated] = useState<boolean>(false);
   const [depts, setDept] = useState<Array<dataProp>>([
     { name: "Rendering Plant", data: "" },
     { name: "ETP", data: "" },
@@ -34,18 +38,16 @@ const Index: React.FC = () => {
     { name: "Office", data: "" },
   ]);
   const [form, setForm] = useState(new FormData());
-  useEffect(() => {
-    created && report && navigation("report/" + report._id);
-  }, [created]);
-  console.log({ depts });
 
   return (
     <>
       <Header />
       {pending && <Loader message="Generating Report Please Wait" />}
+      {created && <Navigate to={"/Report/" + report._id} />}
       <div className="container">
         {depts.map((_dept, index) => (
           <Editor
+            key={index}
             index={index}
             name={_dept.name}
             text={(index: any, name: string, desc: string) => {
