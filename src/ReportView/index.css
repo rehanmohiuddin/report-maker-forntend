@@ -1,0 +1,56 @@
+.carousel-root {
+  width: 25%;
+}
+
+.section-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+}
+.DraftEditor-root {
+  height: 100% !important;
+  padding: 0.3rem;
+}
+
+.section-heading {
+  text-align: left;
+  padding-left: 1rem;
+  padding-top: 1rem;
+  font-size: 3rem;
+}
+
+.share-btn {
+  background-color: #0b132b;
+  position: fixed;
+  right: 0.5rem;
+  bottom: 0.8rem;
+  padding: 0.8rem;
+  z-index: 999;
+  border-radius: 2rem;
+  outline: none;
+  border: none;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #888888;
+}
+
+.report-date {
+  font-size: 2.5rem;
+  font-weight: bolder;
+  text-align: center;
+  padding: 0.3rem;
+}
+
+.report {
+  width: 100%;
+}
+
+@media only screen and (max-width: 500px) {
+  .carousel-root {
+    width: 100%;
+  }
+
+  .DraftEditor-root {
+    height: 100% !important;
+  }
+}
