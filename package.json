@@ -20,6 +20,7 @@
     "@types/redux-logger": "^3.0.9",
     "@types/redux-saga": "^0.10.5",
     "axios": "^0.24.0",
+    "dotenv": "^16.0.0",
     "draft-js": "^0.11.7",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",

@@ -21,13 +21,12 @@ import {
   FETCH_REPORTS_REQUEST,
 } from "./actionTypes";
 import { Report, Reports } from "./types";
-
-const getReports = () =>
-  axios.get<Reports[]>("http://172.20.10.3:5000/reports");
+import { API } from "../../API";
+const getReports = () => axios.get<Reports[]>(`${API}/reports`);
 const createReport = (report: createReportSagaType) =>
-  axios.post<Report[]>("http://172.20.10.3:5000/report", report.payload.report);
+  axios.post<Report[]>(`${API}/report`, report.payload.report);
 const getReport = (payload: fetchReportSagaType) =>
-  axios.get<Reports>(`http://172.20.10.3:5000/report?id=${payload.payload.id}`);
+  axios.get<Reports>(`${API}/report?id=${payload.payload.id}`);
 
 interface createReportSagaType {
   type: string;
