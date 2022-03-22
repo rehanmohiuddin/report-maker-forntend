@@ -1,0 +1,46 @@
+.image-sections-container {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  position: relative;
+}
+.images-preview {
+  display: grid;
+  grid-template-columns: repeat(3, 30vw);
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.images-preview > img {
+  width: 100%;
+  cursor: pointer;
+}
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 25vh;
+  bottom: 5vh;
+  left: 5vw;
+  right: 5vw;
+  background-color: #fff;
+  padding: 2rem;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgb(59, 59, 59);
+}
+.image-preview > img {
+  width: 100%;
+}
+.image-preview > .close-icon {
+  position: absolute;
+  right: 3vw;
+  top: 3vw;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  .images-preview > img {
+    width: 100%;
+  }
+}

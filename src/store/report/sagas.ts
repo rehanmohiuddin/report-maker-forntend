@@ -22,6 +22,7 @@ import {
 } from "./actionTypes";
 import { Report, Reports } from "./types";
 import { API } from "../../API";
+axios.defaults.baseURL = API;
 const getReports = () => axios.get<Reports[]>(`${API}/reports`);
 const createReport = (report: createReportSagaType) =>
   axios.post<Report[]>(`${API}/report`, report.payload.report);

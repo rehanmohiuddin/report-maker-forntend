@@ -11,6 +11,7 @@ import { fetchReportsRequest } from "../store/report/actions";
 import Loader from "../Loader";
 import { getReport, Report, Reports } from "../store/report/types";
 import { useNavigate } from "react-router-dom";
+import { getWeekDay } from "../Util";
 
 const Index: React.FC = () => {
   const navigate = useNavigate();
@@ -87,27 +88,24 @@ const Index: React.FC = () => {
     reports.length > 0 && setReports(reduceAndSort());
   }, [reports]);
   return (
-    <div className="container ">
+    <div>
       <Header />
-      {pending && <Loader message="Getting Reports" />}
+      <div className="container ">
+        {pending && <Loader message="Getting Reports" />}
 
-      <div className="report-cont">
         <div className="reports-container">
-          <h2 className="reports-h2">Reports</h2>
-          <div className="reports-table-header">
-            <h3>Title</h3>
-            <h3>Date</h3>
-            <h3>Timestamp</h3>
-          </div>
-          {["1", "2", "3", "4", "5"].map((_report) => (
+          {reports.map((_report, index) => (
             <div
-              onClick={() => navigate("/Report/")}
-              key={_report}
+              onClick={() => navigate("/Report/" + _report._id)}
+              key={_report._id}
               className="report-card"
             >
-              <h3>Report #{_report}</h3>
-              <h3> {new Date().toLocaleDateString()}</h3>
-              <h3>Report Date: {new Date().toLocaleDateString()}</h3>
+              <img src={ReportCover} />
+              <h3>Report #{index + 1}</h3>
+              <div className="report-body">
+                <h3> Date: {new Date().toLocaleDateString()}</h3>
+                <h3> Day: {getWeekDay(new Date().getDay())}</h3>
+              </div>
             </div>
           ))}
         </div>

@@ -188,7 +188,7 @@ const TextEditor = ({ name, text, index, sendFile }: Props) => {
       </div>
       <input
         type={"file"}
-        accept="image/png, image/jpeg"
+        accept="image/*"
         multiple
         onChange={fileUpload}
         className="btn-upload"

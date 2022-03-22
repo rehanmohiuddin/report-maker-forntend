@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./Report";
 import Reports from "./Reports";
 import Report from "./ReportView";
+import ImageView from "./ImageView";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Reports" element={<Reports />} />
         <Route path="/Report/:id" element={<Report />} />
+        <Route path="/Images/:id" element={<ImageView />} />
       </Routes>
     </div>
   );
