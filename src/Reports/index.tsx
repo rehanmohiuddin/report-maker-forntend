@@ -90,28 +90,26 @@ const Index: React.FC = () => {
     <div className="container ">
       <Header />
       {pending && <Loader message="Getting Reports" />}
-      <h2 className="reports-h2">Reports</h2>
+
       <div className="report-cont">
         <div className="reports-container">
-          {Reports[0]._id &&
-            Reports.map((_report) => (
-              <div
-                onClick={() => navigate("/Report/" + _report._id)}
-                key={_report._id}
-                className="report-card"
-              >
-                <img
-                  src={
-                    _report?.images?.length > 0
-                      ? _report?.images[0]?.url
-                      : ReportCover
-                  }
-                />
-                <h3>
-                  Report Date: {new Date(_report.date).toLocaleDateString()}
-                </h3>
-              </div>
-            ))}
+          <h2 className="reports-h2">Reports</h2>
+          <div className="reports-table-header">
+            <h3>Title</h3>
+            <h3>Date</h3>
+            <h3>Timestamp</h3>
+          </div>
+          {["1", "2", "3", "4", "5"].map((_report) => (
+            <div
+              onClick={() => navigate("/Report/")}
+              key={_report}
+              className="report-card"
+            >
+              <h3>Report #{_report}</h3>
+              <h3> {new Date().toLocaleDateString()}</h3>
+              <h3>Report Date: {new Date().toLocaleDateString()}</h3>
+            </div>
+          ))}
         </div>
       </div>
     </div>

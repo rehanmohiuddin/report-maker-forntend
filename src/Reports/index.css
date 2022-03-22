@@ -1,19 +1,27 @@
 .reports-container {
-  padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-  gap: 1.8rem;
-  justify-content: center;
-  /* width: 100%; */
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  gap: 1rem;
+  /* justify-content: center; */
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #888888;
+  height: 100%;
+  padding: 1rem;
+  margin: 1rem;
 }
 .reports-h2 {
   text-align: left;
   margin-bottom: 1.2rem;
-  margin-left: 2rem;
-  padding: 0.8rem;
+
   padding-bottom: 0;
   font-size: 3rem;
+}
+.reports-table-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
 }
 .report-cont {
   display: flex;
@@ -23,14 +31,14 @@
 .report-card {
   background-color: #fff;
   display: flex;
-  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #888888;
-  /* padding: 0.5rem; */
+  /* box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #888888; */
+  padding: 0.5rem;
   margin-bottom: 1rem;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  flex-direction: column;
-  width: 80%;
   cursor: pointer;
+  margin: 0 1rem 0 1rem;
+  border-radius: 0.2rem;
 }
 .report-card > h3 {
   padding: 0.3rem;
