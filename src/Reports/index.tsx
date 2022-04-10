@@ -87,6 +87,26 @@ const Index: React.FC = () => {
   useEffect(() => {
     reports.length > 0 && setReports(reduceAndSort());
   }, [reports]);
+
+  const ReportsContainer = () => (
+    <>
+      {reports.map((_report, index) => (
+        <div
+          onClick={() => navigate("/Report/" + _report._id)}
+          key={_report._id}
+          className="report-card"
+        >
+          <img src={ReportCover} />
+          <h3>Report #{index + 1}</h3>
+          <div className="report-body">
+            <h3> Date: {new Date(_report.date).toLocaleDateString()}</h3>
+            <h3> Day: {getWeekDay(new Date(_report.date).getDay())}</h3>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+
   return (
     <div>
       <Header />
@@ -103,8 +123,8 @@ const Index: React.FC = () => {
               <img src={ReportCover} />
               <h3>Report #{index + 1}</h3>
               <div className="report-body">
-                <h3> Date: {new Date().toLocaleDateString()}</h3>
-                <h3> Day: {getWeekDay(new Date().getDay())}</h3>
+                <h3> Date: {new Date(_report.date).toLocaleDateString()}</h3>
+                <h3> Day: {getWeekDay(new Date(_report.date).getDay())}</h3>
               </div>
             </div>
           ))}

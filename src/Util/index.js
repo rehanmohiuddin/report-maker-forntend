@@ -1,12 +1,12 @@
 const getWeekDay = (day) =>
   [
+    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
-    "Sunday",
-  ][day - 1];
+  ][day];
 
 export { getWeekDay };
