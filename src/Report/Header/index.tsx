@@ -2,11 +2,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
 import "./index.css";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AvatarDemo from "../../Assets/img_avatar.png";
+import { useDispatch, useSelector } from "react-redux";
+import { checkRequest, logout } from "../../store/report/actions";
+import { getLogedInSelector } from "../../store/report/selectors";
 
 function Index() {
   const [showNav, setNav] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(getLogedInSelector);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    dispatch(logout());
+  };
 
   return (
     <header>
@@ -27,6 +38,13 @@ function Index() {
           <li>
             <Link to={"/Reports"}>Reports </Link>
           </li>
+          {isLoggedIn && (
+            <li>
+              <Link onClick={handleLogout} to={"#"}>
+                LogOut{" "}
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
       {showNav && (
@@ -43,10 +61,14 @@ function Index() {
             <Link to={"/"}>
               <li>Home</li>{" "}
             </Link>
-
             <Link to={"/Reports"}>
               <li>Reports </li>{" "}
             </Link>
+            {isLoggedIn && (
+              <Link onClick={handleLogout} to={"#"}>
+                <li> LogOut</li>
+              </Link>
+            )}
           </ul>
         </div>
       )}

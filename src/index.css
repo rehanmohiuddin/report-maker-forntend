@@ -16,10 +16,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+:root {
+  --primary: rgba(0, 0, 0, 0.5);
 }
+
 .container {
   display: flex;
   flex-direction: column;

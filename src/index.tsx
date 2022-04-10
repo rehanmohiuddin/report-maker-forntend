@@ -6,11 +6,14 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./store";
 import { BrowserRouter } from "react-router-dom";
+import Toast from "./Components/Toast";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
       <App />
+      <Toast />
     </Provider>
   </BrowserRouter>,
   document.getElementById("root")

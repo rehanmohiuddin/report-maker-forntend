@@ -10,6 +10,10 @@ import {
   createReportSuccess,
   fetchReportsSuccess,
   fetchReportsFailure,
+  checkSuccess,
+  checkFailure,
+  loginSuccess,
+  loginFailure,
 } from "./actions";
 import {
   FETCH_REPORT_REQUEST,
@@ -19,8 +23,15 @@ import {
   CREATE_REPORT_REQUEST,
   CREATE_REPORT_SUCCESS,
   FETCH_REPORTS_REQUEST,
+  CHECK_AUTH_REQUEST,
+  LOGIN_REQUEST,
 } from "./actionTypes";
-import { Report, Reports } from "./types";
+import {
+  CheckAuthRequestPayload,
+  LoginRequestPayload,
+  Report,
+  Reports,
+} from "./types";
 import { API } from "../../API";
 axios.defaults.baseURL = API;
 const getReports = () => axios.get<Reports[]>(`${API}/reports`);
@@ -28,6 +39,12 @@ const createReport = (report: createReportSagaType) =>
   axios.post<Report[]>(`${API}/report`, report.payload.report);
 const getReport = (payload: fetchReportSagaType) =>
   axios.get<Reports>(`${API}/report?id=${payload.payload.id}`);
+
+const checkAuth = (payload: checkAuthSagaType) =>
+  axios.get(`${API}/check/auth?token=${payload.payload.token}`);
+
+const login = (payload: loginSagaType) =>
+  axios.post(`${API}/auth`, { password: payload.payload.password });
 
 interface createReportSagaType {
   type: string;
@@ -39,6 +56,20 @@ interface fetchReportSagaType {
   type: string;
   payload: {
     id: string;
+  };
+}
+
+interface loginSagaType {
+  type: string;
+  payload: {
+    password: string;
+  };
+}
+
+interface checkAuthSagaType {
+  type: string;
+  payload: {
+    token: string;
   };
 }
 
@@ -54,6 +85,40 @@ function* fetchReportSaga(payload: fetchReportSagaType): any {
     yield put(
       fetchReportFailure({
         error: e.toString(),
+      })
+    );
+  }
+}
+
+function* checkAuthSaga(payload: checkAuthSagaType): any {
+  try {
+    const response = yield call(checkAuth, payload);
+    yield put(
+      checkSuccess({
+        user: response.data,
+      })
+    );
+  } catch (e: any) {
+    yield put(
+      checkFailure({
+        message: e.toString(),
+      })
+    );
+  }
+}
+
+function* loginSaga(payload: loginSagaType): any {
+  try {
+    const response = yield call(login, payload);
+    yield put(
+      loginSuccess({
+        user: response.data,
+      })
+    );
+  } catch (e: any) {
+    yield put(
+      loginFailure({
+        message: e.toString(),
       })
     );
   }
@@ -97,6 +162,8 @@ function* reportSaga() {
     takeLatest(FETCH_REPORT_REQUEST, fetchReportSaga),
     takeLatest(CREATE_REPORT_REQUEST, createReportSaga),
     takeLatest(FETCH_REPORTS_REQUEST, fetchReportsSaga),
+    takeLatest(CHECK_AUTH_REQUEST, checkAuthSaga),
+    takeLatest(LOGIN_REQUEST, loginSaga),
   ]);
 }
 

@@ -8,6 +8,13 @@ import {
   FETCH_REPORTS_FAILURE,
   FETCH_REPORTS_REQUEST,
   FETCH_REPORTS_SUCCESS,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  CHECK_AUTH_SUCCESS,
+  CHECK_AUTH_FAILURE,
+  CHECK_AUTH_REQUEST,
+  LOGOUT,
 } from "./actionTypes";
 
 export interface Report {
@@ -49,6 +56,9 @@ export interface ReportState {
   report: Report;
   fetchedReport: any;
   reportedCreated: boolean;
+  user: {};
+  isLoggedIn: boolean;
+  message: string | null;
 }
 export interface FetchReportRequestPayload {
   id: string;
@@ -72,6 +82,30 @@ export interface CreateReportRequestPayload {
   report: FormData;
 }
 
+export interface LoginRequestPayload {
+  password: string;
+}
+
+export interface LoginFailurePayload {
+  message: string;
+}
+
+export interface LoginSuccessPayload {
+  user: { token: string; email: string };
+}
+
+export interface CheckAuthRequestPayload {
+  token: string;
+}
+
+export interface CheckAuthFailurePayload {
+  message: string;
+}
+
+export interface CheckAuthSuccessPayload {
+  user: { token: string; email: string };
+}
+
 export interface FetchReportsFailurePayload {
   error: string;
 }
@@ -83,6 +117,16 @@ export interface FetchReportRequest {
   type: typeof FETCH_REPORT_REQUEST;
 }
 
+export interface LoginRequest {
+  type: typeof LOGIN_REQUEST;
+  payload: LoginRequestPayload;
+}
+
+export interface CheckAuthRequest {
+  type: typeof CHECK_AUTH_REQUEST;
+  payload: CheckAuthRequestPayload;
+}
+
 export interface FetchReportsRequest {
   type: typeof FETCH_REPORTS_REQUEST;
 }
@@ -91,6 +135,11 @@ export interface CreateReportRequest {
   type: typeof CREATE_REPORT_REQUEST;
   payload: CreateReportRequestPayload;
 }
+
+export interface LogOut {
+  type: typeof LOGOUT;
+}
+
 export interface FetchReportRequest {
   type: typeof FETCH_REPORT_REQUEST;
   payload: FetchReportRequestPayload;
@@ -121,6 +170,26 @@ export type CreateReportFailure = {
   payload: CreateReportFailurePayload;
 };
 
+export type LoginSuccess = {
+  type: typeof LOGIN_SUCCESS;
+  payload: LoginSuccessPayload;
+};
+
+export type LoginFailure = {
+  type: typeof LOGIN_FAILURE;
+  payload: LoginFailurePayload;
+};
+
+export type CheckAuthSuccess = {
+  type: typeof CHECK_AUTH_SUCCESS;
+  payload: LoginSuccessPayload;
+};
+
+export type CheckAuthFailure = {
+  type: typeof CHECK_AUTH_FAILURE;
+  payload: LoginFailurePayload;
+};
+
 export type ReportActions =
   | FetchReportRequest
   | FetchReportSuccess
@@ -130,4 +199,11 @@ export type ReportActions =
   | FetchReportsFailure
   | CreateReportRequest
   | CreateReportSuccess
-  | CreateReportFailure;
+  | CreateReportFailure
+  | LoginRequest
+  | LoginSuccess
+  | LoginFailure
+  | CheckAuthRequest
+  | CheckAuthSuccess
+  | CheckAuthFailure
+  | LogOut;

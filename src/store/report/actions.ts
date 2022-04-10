@@ -8,6 +8,13 @@ import {
   FETCH_REPORTS_FAILURE,
   FETCH_REPORTS_REQUEST,
   FETCH_REPORTS_SUCCESS,
+  LOGIN_FAILURE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  CHECK_AUTH_FAILURE,
+  CHECK_AUTH_SUCCESS,
+  CHECK_AUTH_REQUEST,
+  LOGOUT,
 } from "./actionTypes";
 import {
   FetchReportRequest,
@@ -27,6 +34,19 @@ import {
   FetchReportsSuccessPayload,
   CreateReportRequestPayload,
   FetchReportRequestPayload,
+  LoginRequestPayload,
+  LoginRequest,
+  LoginSuccessPayload,
+  LoginSuccess,
+  LoginFailurePayload,
+  LoginFailure,
+  CheckAuthFailurePayload,
+  CheckAuthFailure,
+  CheckAuthSuccess,
+  CheckAuthSuccessPayload,
+  CheckAuthRequestPayload,
+  CheckAuthRequest,
+  LogOut,
 } from "./types";
 
 export const fetchReportRequest = (
@@ -87,4 +107,44 @@ export const createReportFailure = (
 ): CreateReportFailure => ({
   type: CREATE_REPORT_FAILURE,
   payload,
+});
+
+export const loginRequest = (payload: LoginRequestPayload): LoginRequest => ({
+  type: LOGIN_REQUEST,
+  payload,
+});
+
+export const loginSuccess = (payload: LoginSuccessPayload): LoginSuccess => ({
+  type: LOGIN_SUCCESS,
+  payload,
+});
+
+export const loginFailure = (payload: LoginFailurePayload): LoginFailure => ({
+  type: LOGIN_FAILURE,
+  payload,
+});
+
+export const checkRequest = (
+  payload: CheckAuthRequestPayload
+): CheckAuthRequest => ({
+  type: CHECK_AUTH_REQUEST,
+  payload,
+});
+
+export const checkSuccess = (
+  payload: CheckAuthSuccessPayload
+): CheckAuthSuccess => ({
+  type: CHECK_AUTH_SUCCESS,
+  payload,
+});
+
+export const checkFailure = (
+  payload: CheckAuthFailurePayload
+): CheckAuthFailure => ({
+  type: CHECK_AUTH_FAILURE,
+  payload,
+});
+
+export const logout = (): LogOut => ({
+  type: LOGOUT,
 });

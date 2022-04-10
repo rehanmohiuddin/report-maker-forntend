@@ -77,7 +77,6 @@ const Index = () => {
       setReportData(__ReportData);
     }
   }, [report]);
-  console.log({ _ReportData });
   return (
     <div>
       <Header />
@@ -108,7 +107,7 @@ const Index = () => {
                         editorState={EditorState.createWithContent(
                           convertFromRaw(JSON.parse(_section.description))
                         )}
-                        onChange={() => console.log({ _section })}
+                        onChange={() => {}}
                         readOnly={true}
                       />
                     </fieldset>
