@@ -15,6 +15,7 @@ import {
   CHECK_AUTH_SUCCESS,
   CHECK_AUTH_FAILURE,
   LOGOUT,
+  DELETE_REPORT_SUCCESS,
 } from "./actionTypes";
 
 import { ReportState, ReportActions } from "./types";
@@ -57,6 +58,13 @@ const initialState: ReportState = {
 
 export default (state = initialState, action: ReportActions) => {
   switch (action.type) {
+    case DELETE_REPORT_SUCCESS:
+      return {
+        ...state,
+        reports: state.reports.filter(
+          (report) => report._id !== action.payload.message._id
+        ),
+      };
     case FETCH_REPORT_REQUEST:
       return {
         ...state,

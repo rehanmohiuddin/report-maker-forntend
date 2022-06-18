@@ -15,6 +15,9 @@ import {
   CHECK_AUTH_SUCCESS,
   CHECK_AUTH_REQUEST,
   LOGOUT,
+  DELETE_REPORT_REQUEST,
+  DELETE_REPORT_SUCCESS,
+  DELETE_REPORT_FAILURE,
 } from "./actionTypes";
 import {
   FetchReportRequest,
@@ -47,6 +50,12 @@ import {
   CheckAuthRequestPayload,
   CheckAuthRequest,
   LogOut,
+  DeleteReportRequestPayload,
+  DeleteReportRequest,
+  DeleteReportSuccessPayload,
+  DeleteReportSuccess,
+  DeleteReportFailurePayload,
+  DeleteReportFailure,
 } from "./types";
 
 export const fetchReportRequest = (
@@ -106,6 +115,27 @@ export const createReportFailure = (
   payload: CreateReportFailurePayload
 ): CreateReportFailure => ({
   type: CREATE_REPORT_FAILURE,
+  payload,
+});
+
+export const deleteReportRequest = (
+  payload: DeleteReportRequestPayload
+): DeleteReportRequest => ({
+  type: DELETE_REPORT_REQUEST,
+  payload,
+});
+
+export const deleteReportSuccess = (
+  payload: DeleteReportSuccessPayload
+): DeleteReportSuccess => ({
+  type: DELETE_REPORT_SUCCESS,
+  payload,
+});
+
+export const deleteReportFailure = (
+  payload: DeleteReportFailurePayload
+): DeleteReportFailure => ({
+  type: DELETE_REPORT_FAILURE,
   payload,
 });
 

@@ -57,13 +57,22 @@ div.DraftEditor-root {
   word-break: break-word;
 }
 
+.report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.report-header > .delete {
+  background-color: red;
+}
+
 div.DraftEditor-editorContainer,
 div.public-DraftEditor-content {
   height: 100%;
   min-height: 200px;
 }
-.report-view-container {
-  border: 10px solid #0b132b;
+.report-container {
+  width: 100%;
 }
 @media only screen and (max-width: 500px) {
   .carousel-root {

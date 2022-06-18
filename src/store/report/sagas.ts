@@ -14,6 +14,8 @@ import {
   checkFailure,
   loginSuccess,
   loginFailure,
+  deleteReportSuccess,
+  deleteReportFailure,
 } from "./actions";
 import {
   FETCH_REPORT_REQUEST,
@@ -25,6 +27,7 @@ import {
   FETCH_REPORTS_REQUEST,
   CHECK_AUTH_REQUEST,
   LOGIN_REQUEST,
+  DELETE_REPORT_REQUEST,
 } from "./actionTypes";
 import {
   CheckAuthRequestPayload,
@@ -33,10 +36,17 @@ import {
   Reports,
 } from "./types";
 import { API } from "../../API";
+import { toast } from "react-toastify";
 axios.defaults.baseURL = API;
+
 const getReports = () => axios.get<Reports[]>(`${API}/reports`);
+
 const createReport = (report: createReportSagaType) =>
   axios.post<Report[]>(`${API}/report`, report.payload.report);
+
+const deleteReport = ({ type, payload }: deleteReportSagaType) =>
+  axios.delete<Report[]>(`${API}/report?id=${payload._id}`);
+
 const getReport = (payload: fetchReportSagaType) =>
   axios.get<Reports>(`${API}/report?id=${payload.payload.id}`);
 
@@ -45,6 +55,13 @@ const checkAuth = (payload: checkAuthSagaType) =>
 
 const login = (payload: loginSagaType) =>
   axios.post(`${API}/auth`, { password: payload.payload.password });
+
+interface deleteReportSagaType {
+  type: string;
+  payload: {
+    _id: string;
+  };
+}
 
 interface createReportSagaType {
   type: string;
@@ -157,6 +174,25 @@ function* createReportSaga(report: createReportSagaType): any {
   }
 }
 
+function* deleteReportSaga(report: deleteReportSagaType): any {
+  try {
+    const response = yield call(deleteReport, report);
+    yield put(
+      deleteReportSuccess({
+        message: response.data.message,
+      })
+    );
+    toast("Delete Success");
+  } catch (e) {
+    yield put(
+      deleteReportFailure({
+        error: "Delete Failure",
+      })
+    );
+    toast("Delete Failure");
+  }
+}
+
 function* reportSaga() {
   yield all([
     takeLatest(FETCH_REPORT_REQUEST, fetchReportSaga),
@@ -164,6 +200,7 @@ function* reportSaga() {
     takeLatest(FETCH_REPORTS_REQUEST, fetchReportsSaga),
     takeLatest(CHECK_AUTH_REQUEST, checkAuthSaga),
     takeLatest(LOGIN_REQUEST, loginSaga),
+    takeLatest(DELETE_REPORT_REQUEST, deleteReportSaga),
   ]);
 }
 

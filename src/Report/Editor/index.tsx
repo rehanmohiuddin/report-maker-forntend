@@ -30,8 +30,9 @@ interface imageProp {
 }
 const TextEditor = ({ name, text, index, sendFile }: Props) => {
   const initialState = EditorState.createEmpty();
-  const [editorState, setEditorState] =
-    React.useState<EditorState>(initialState);
+  const [editorState, setEditorState] = React.useState<EditorState>(
+    RichUtils.toggleBlockType(initialState, "ordered-list-item")
+  );
   const [images, setImages] = useState<imageProp[]>([]);
   const [image, setImage] = useState<imageProp>();
   const handleSave = () => {
@@ -172,11 +173,7 @@ const TextEditor = ({ name, text, index, sendFile }: Props) => {
           editorState={editorState}
           onChange={(e) => {
             setEditorState(e);
-            text(
-              index,
-              name,
-              JSON.stringify(convertToRaw(e.getCurrentContent()))
-            );
+            text(JSON.stringify(convertToRaw(e.getCurrentContent())));
           }}
           handleKeyCommand={handleKeyCommand}
         />

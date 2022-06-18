@@ -17,7 +17,7 @@ body {
 }
 
 :root {
-  --primary: rgba(0, 0, 0, 0.5);
+  --primary: #1c2541;
 }
 
 .container {
@@ -25,4 +25,16 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+}
+::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  outline: 1px solid slategrey;
 }

@@ -15,6 +15,9 @@ import {
   CHECK_AUTH_FAILURE,
   CHECK_AUTH_REQUEST,
   LOGOUT,
+  DELETE_REPORT_REQUEST,
+  DELETE_REPORT_SUCCESS,
+  DELETE_REPORT_FAILURE,
 } from "./actionTypes";
 
 export interface Report {
@@ -80,6 +83,18 @@ export interface FetchReportFailurePayload {
 
 export interface CreateReportRequestPayload {
   report: FormData;
+}
+
+export interface DeleteReportRequestPayload {
+  _id: string;
+}
+
+export interface DeleteReportSuccessPayload {
+  message: Report;
+}
+
+export interface DeleteReportFailurePayload {
+  error: string;
 }
 
 export interface LoginRequestPayload {
@@ -190,6 +205,21 @@ export type CheckAuthFailure = {
   payload: LoginFailurePayload;
 };
 
+export type DeleteReportRequest = {
+  type: typeof DELETE_REPORT_REQUEST;
+  payload: DeleteReportRequestPayload;
+};
+
+export type DeleteReportSuccess = {
+  type: typeof DELETE_REPORT_SUCCESS;
+  payload: DeleteReportSuccessPayload;
+};
+
+export type DeleteReportFailure = {
+  type: typeof DELETE_REPORT_FAILURE;
+  payload: DeleteReportFailurePayload;
+};
+
 export type ReportActions =
   | FetchReportRequest
   | FetchReportSuccess
@@ -200,6 +230,9 @@ export type ReportActions =
   | CreateReportRequest
   | CreateReportSuccess
   | CreateReportFailure
+  | DeleteReportRequest
+  | DeleteReportSuccess
+  | DeleteReportFailure
   | LoginRequest
   | LoginSuccess
   | LoginFailure

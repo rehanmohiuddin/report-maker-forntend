@@ -88,7 +88,7 @@ const Index: React.FC = () => {
     reports.length > 0 && setReports(reduceAndSort());
   }, [reports]);
 
-  const ReportsContainer = () => (
+  const renderReports = () => (
     <>
       {reports.map((_report, index) => (
         <div
@@ -96,7 +96,7 @@ const Index: React.FC = () => {
           key={_report._id}
           className="report-card"
         >
-          <img src={ReportCover} />
+          <img loading={"lazy"} src={ReportCover} />
           <h3>Report #{index + 1}</h3>
           <div className="report-body">
             <h3> Date: {new Date(_report.date).toLocaleDateString()}</h3>
@@ -107,27 +107,15 @@ const Index: React.FC = () => {
     </>
   );
 
+  const isReportsEmpty = reports.length === 0;
   return (
     <div>
       <Header />
       <div className="container ">
         {pending && <Loader message="Getting Reports" />}
-
+        <h3 className="page-title">Reports</h3>
         <div className="reports-container">
-          {reports.map((_report, index) => (
-            <div
-              onClick={() => navigate("/Report/" + _report._id)}
-              key={_report._id}
-              className="report-card"
-            >
-              <img src={ReportCover} />
-              <h3>Report #{index + 1}</h3>
-              <div className="report-body">
-                <h3> Date: {new Date(_report.date).toLocaleDateString()}</h3>
-                <h3> Day: {getWeekDay(new Date(_report.date).getDay())}</h3>
-              </div>
-            </div>
-          ))}
+          {isReportsEmpty ? "Sorry No Reports :(" : renderReports()}
         </div>
       </div>
     </div>

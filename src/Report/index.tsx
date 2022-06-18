@@ -29,15 +29,15 @@ const Index: React.FC = () => {
   const pending = useSelector(getPendingSelector);
   const navigation = useNavigate();
   const [reportCreated, setCreated] = useState<boolean>(false);
-  const [depts, setDept] = useState<Array<dataProp>>([
-    { name: "Rendering Plant", data: "" },
-    { name: "ETP", data: "" },
-    { name: "Slaughter", data: "" },
-    { name: "Machine Room", data: "" },
-    { name: "Civil Dept", data: "" },
-    { name: "Office", data: "" },
-  ]);
+  const [data, setData] = useState<string>("");
   const [form, setForm] = useState(new FormData());
+
+  const handleGenerateReport = () => {
+    const _form = form;
+    const todayDate = new Date().toLocaleDateString();
+    _form.append(`Daily Report ${todayDate}`, data);
+    dispatch(createReportRequest({ report: _form }));
+  };
 
   return (
     <>
@@ -45,35 +45,21 @@ const Index: React.FC = () => {
       {pending && <Loader message="Generating Report Please Wait" />}
       {created && <Navigate to={"/Report/" + report._id} />}
       <div className="container">
-        {depts.map((_dept, index) => (
-          <Editor
-            key={index}
-            index={index}
-            name={_dept.name}
-            text={(index: any, name: string, desc: string) => {
-              const _depts = depts;
-              _depts[index].data = desc;
-              setDept([..._depts]);
-            }}
-            sendFile={(name: string, file: File) => {
-              const _form = form;
-              _form.append("file", file, `${name}-${file.name}`);
-              setForm(_form);
-            }}
-          />
-        ))}
+        <Editor
+          index={0}
+          name={"Daily Report"}
+          text={(desc: string) => {
+            setData(desc);
+          }}
+          sendFile={(name: string, file: File) => {
+            const _form = form;
+            _form.append("file", file, `${name}-${file.name}`);
+            setForm(_form);
+          }}
+        />
       </div>
 
-      <button
-        className="generate-btn"
-        onClick={() => {
-          const _form = form;
-          depts.forEach((_dept) => {
-            _dept.data.length > 0 && _form.append(_dept.name, _dept.data);
-          });
-          dispatch(createReportRequest({ report: _form }));
-        }}
-      >
+      <button className="generate-btn" onClick={handleGenerateReport}>
         GENERATE REPORT
       </button>
     </>

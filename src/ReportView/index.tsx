@@ -16,7 +16,10 @@ import {
   convertFromRaw,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
-import { fetchReportRequest } from "../store/report/actions";
+import {
+  deleteReportRequest,
+  fetchReportRequest,
+} from "../store/report/actions";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import Loader from "../Loader";
@@ -25,6 +28,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { getWeekDay } from "../Util";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const report = useSelector(getReportSelector);
@@ -43,9 +47,10 @@ const Index = () => {
     sections: [],
   });
   const [baseFile, setbaseFile] = useState<string>("");
+  const _id = window.location.pathname.split("/")[2];
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const _id = window.location.pathname.split("/")[2];
     dispatch(fetchReportRequest({ id: _id }));
   }, []);
 
@@ -77,6 +82,12 @@ const Index = () => {
       setReportData(__ReportData);
     }
   }, [report]);
+
+  const deleteReportHandler = () => {
+    dispatch(deleteReportRequest({ _id: _id }));
+    navigate("/reports");
+  };
+
   return (
     <div>
       <Header />
@@ -85,11 +96,19 @@ const Index = () => {
 
         <div className="report-container">
           <div className="report" id="capture">
-            <div className="report-date">
-              Date: {new Date(Report.date).toLocaleDateString()}
-            </div>
-            <div className="report-date report-day">
-              Day: {getWeekDay(new Date(Report.date).getDay())}
+            <div className="report-header">
+              <div className="report-date">
+                Date: {new Date(Report.date).toLocaleDateString()}
+              </div>
+              <div className="report-date report-day">
+                Day: {getWeekDay(new Date(Report.date).getDay())}
+              </div>
+              <button
+                className="generate-btn delete"
+                onClick={deleteReportHandler}
+              >
+                Delete
+              </button>
             </div>
             {Report &&
               Report.sections.map(
