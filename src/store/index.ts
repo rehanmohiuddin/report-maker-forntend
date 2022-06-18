@@ -9,7 +9,12 @@ import rootSaga from "./rootSaga";
 const sagaMiddleware = createSagaMiddleware();
 
 // Mount it on the Store
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger));
+const store = createStore(
+  rootReducer,
+  process.env.REACT_APP_ENV === "development"
+    ? applyMiddleware(sagaMiddleware, logger)
+    : applyMiddleware(sagaMiddleware)
+);
 
 // Run the saga
 sagaMiddleware.run(rootSaga);
